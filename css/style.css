@@ -15,4 +15,29 @@ body {
 #code {
 	overflow: auto;
 	height: 100%;
+    font-size: 14px;
+}
+
+.actions {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+
+.actions > button {
+	margin: 10px 0;
+	padding: 6px 8px;
+    border: none;
+	background: #ddd;
+	display: flex;
+	flex-direction: column;
+}
+
+.actions > button.active {
+    background-color: #999;
+    box-shadow: 0 0 3px #fff;
+}
+
+.actions > button:focus {
+    outline: none;
 }

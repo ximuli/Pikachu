@@ -1,18 +1,50 @@
 !function(){
+	var duration = 50
+	
+	$('button').on('click', function(e) {
+        let $button = $(e.currentTarget)
+        let speed = $button.attr('data-speed')
+        console.log(speed)
+        $button.addClass('active').siblings('.active').removeClass('active')
+        switch (speed) {
+            case 'slow': 
+                duration = 100
+                break
+            case 'normal':
+                duration = 50
+            case 'fast':
+                duration = 10
+        }
+    })
+
 	function writeCode(prefix, code, fn) {
         let preTag = document.querySelector('#code')
         let styleTag = document.querySelector('#styleTag')
+        // let n = 0;
+        // let id = setInterval(() => {
+        // 	n += 1
+        // 	preTag.innerHTML = code.substring(0,n)
+        // 	styleTag.innerHTML = code.substring(0,n)
+        // 	preTag.scrollTop = preTag.scrollHeight
+        // 	if (n >= code.length) {
+        // 		clearInterval(id)
+        // 		fn && fn.call()
+        // 	}
+        // }, 10)
         let n = 0;
-        let id = setInterval(() => {
+        setTimeout(function run() {
         	n += 1
         	preTag.innerHTML = code.substring(0,n)
         	styleTag.innerHTML = code.substring(0,n)
         	preTag.scrollTop = preTag.scrollHeight
-        	if (n >= code.length) {
-        		clearInterval(id)
+        	if (n < code.length) {
+        		setTimeout(run, duration)
+        	}else{
         		fn && fn.call()
         	}
-        }, 10)
+        	
+        }, duration)
+
 	}
 
     let code = `
@@ -20,10 +52,11 @@
  * 来画一只皮卡丘吧！
  * 首先，让我们准备个小黑板来放置代码
  */
- 
+
 #code {
-	background-color: #333;
-	color: #fff;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
 }
 
  /*
@@ -160,8 +193,8 @@
 .lowerLip-wrapper {
     position: absolute;
     bottom: -20px;
-	width: 180px;
-	height: 130px;
+    width: 180px;
+    height: 130px;
     overflow: hidden;
     left: 50%;
     transform: translateX(-50%);
